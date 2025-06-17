@@ -16,7 +16,6 @@ function Series() {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovieForModal, setSelectedMovieForModal] = useState(null); // ADICIONADO: Estado para filme selecionado
 
-  console.log(heroSeries);
 
   // Hook customizado para gerenciar o carrossel
   const {
@@ -36,9 +35,6 @@ function Series() {
 
   // ADICIONADO: Função para abrir modal com filme específico
   const handleShowModal = (movie) => {
-    console.log('=== OPENING MODAL ===');
-    console.log('Movie for modal:', movie.name || movie.title);
-    console.log('Movie ID for modal:', movie.id);
 
     setSelectedMovieForModal(movie);
     setShowModal(true);

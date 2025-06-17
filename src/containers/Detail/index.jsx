@@ -22,14 +22,11 @@ function Detail() {
     async function getAllData() {
       try {
         setLoading(true)
-        console.log('=== DETAIL COMPONENT ===');
-        console.log('ID recebido:', id);
 
         // Tenta buscar como série primeiro
         let movie, videos, credits, similar, type;
         
         try {
-          console.log('Tentando buscar como SÉRIE...');
           const [serieData, serieVideos, serieCredits, serieSimilar] = await Promise.all([
             getSerieById(id),
             getSerieVideos(id),
@@ -39,7 +36,6 @@ function Detail() {
 
           // Verifica se retornou dados válidos de série (séries têm 'name')
           if (serieData && serieData.name) {
-            console.log('✅ Encontrado como SÉRIE:', serieData.name);
             movie = serieData;
             videos = serieVideos;
             credits = serieCredits;
@@ -49,7 +45,6 @@ function Detail() {
             throw new Error('Não é série');
           }
         } catch (error) {
-          console.log('❌ Não é série, tentando como FILME...');
           
           // Se não for série, tenta como filme
           const [movieData, movieVideos, movieCredits, movieSimilar] = await Promise.all([
@@ -59,7 +54,6 @@ function Detail() {
             getMovieSimilar(id),
           ]);
 
-          console.log('✅ Encontrado como FILME:', movieData.title);
           movie = movieData;
           videos = movieVideos;
           credits = movieCredits;

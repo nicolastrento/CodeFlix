@@ -13,44 +13,34 @@ function Modal({ movieId, setShowModal }) {
       try {
         setMovie(null);
         setLoading(true);
-        
-        console.log('=== MODAL DEBUG ===');
-        console.log('Movie ID para buscar vídeos:', movieId);
-        
+         
         let videos = [];
         
         // Tenta buscar como série primeiro
         try {
-          console.log('Tentando buscar vídeos como SÉRIE...');
           const serieVideos = await getSerieVideos(movieId);
           
           if (serieVideos && serieVideos.length > 0) {
-            console.log('✅ Encontrados vídeos de SÉRIE:', serieVideos.length);
             videos = serieVideos;
           } else {
             throw new Error('Nenhum vídeo de série encontrado');
           }
         } catch (error) {
-          console.log('❌ Não encontrou vídeos de série, tentando como FILME...');
           
           // Se não encontrar vídeos de série, tenta como filme
           try {
             const movieVideos = await getMovieVideos(movieId);
             
             if (movieVideos && movieVideos.length > 0) {
-              console.log('✅ Encontrados vídeos de FILME:', movieVideos.length);
               videos = movieVideos;
             }
           } catch (movieError) {
-            console.log('❌ Também não encontrou vídeos de filme');
           }
         }
         
-        console.log('Vídeos finais:', videos);
         setMovie(videos);
         
       } catch (error) {
-        console.error('Erro ao buscar vídeos:', error);
         setMovie([]);
       } finally {
         setLoading(false);
